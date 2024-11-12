@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tengo algo que contarte bro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: rgb(230,223,233);
+            color: #090909;
+            width: 100vw;
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section1 h1 {
+            text-align: center;
+        }
+
+        .span-1, .span-2, .span-3, .span-4 {
+            font-size: 4rem;
+        }
+
+        button {
+            width: 75px;
+            height: 30px;
+            border: none;
+            border-radius: 15px;
+            color: rgb(230, 223, 223);
+            background: #090909;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #090909c3;
+        }
+
+        .meme-final {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .meme-final span {
+            font-size: 3.2rem;
+        }
+
+        .desactivado { display: none; }
+        .oculto { visibility: hidden; }
+
+    </style>
+</head>
+<body>
+    <div class="section1" id="s1">
+        <h1>
+            <span class="span-1">Hey</span><br />
+            <span class="span-2">tengo que </span><br />
+            <span class="span-3">contarte</span><br />
+            <span class="span-4">que...</span><br />
+            <button id="btn">ver</button>
+        </h1>
+    </div>
+    <div class="section2 desactivado" id="s2">
+        <audio id="myAudio" src="haudio.mpeg" preload="auto" class="desactivado"></audio>
+        <p class="letras" id="pLetras"></p>
+    </div>
+
+    <script type="module">
+        const $ = (e) => document.getElementById(e);
+        const section1 = $("s1");
+        const btn = $("btn");
+        const audio = $("myAudio");
+        const section2 = $("s2");
+        const pLetras = $("pLetras");
+
+        const letrasConfig = [
+            { palabras: ["Desde", "Septiembre"], tiempo: 0 },
+            { palabras: ["se", "siente"], tiempo: 1900},
+            { palabras: ["que", "viene"], tiempo: 4000},
+            { palabras: ["Diciembre"], tiempo: 5000, esUltimo: true},
+        ];
+
+        btn.addEventListener("click", () => {
+            section1.classList.add("desactivado");
+            section2.classList.remove("desactivado");
+            audio.volume = 1.0;
+            audio.play();
+            mostrarLetras(letrasConfig);
+        });
+
+        function mostrarLetras(config) {
+            config.forEach((letraObj) => {
+                setTimeout(() => {
+                    pLetras.innerHTML = "";
+
+                    letraObj.palabras.forEach((palabra, index) => {
+                        const span = document.createElement("span");
+                        span.textContent = palabra;
+                        if (index > 0) span.classList.add("oculto"); 
+                        pLetras.appendChild(span);
+                        pLetras.appendChild(document.createElement("br")); 
+                        if (index > 0) {
+                            setTimeout(() => {
+                                span.classList.remove("oculto"); 
+                            }, 500); 
+                        }
+                    });
+
+                    if (letraObj.esUltimo) {
+                        setTimeout(() => {
+                            pLetras.innerHTML = "";
+                            const gif = document.createElement("img");
+                            gif.src = "santa.gif";
+                            const span = document.createElement("span");
+                            span.innerHTML = "FELIZ CASI <br />🎄 NAVIDAD 🎄";
+                            pLetras.appendChild(span);
+                            pLetras.appendChild(gif);
+                            pLetras.classList.add("meme-final");
+                        }, 2500);
+                    }
+                }, letraObj.tiempo);
+            });
+        }
+    </script>
+</body>
+</html>
