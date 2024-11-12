@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tengo algo que contarte bro</title>
+    <title>Tengo algo que contarte bro</title>  <!-- titulo -->
     <style>
         * {
             margin: 0;
@@ -84,13 +84,15 @@
         const section2 = $("s2");
         const pLetras = $("pLetras");
 
+        
         const letrasConfig = [
             { palabras: ["Desde", "Septiembre"], tiempo: 0 },
-            { palabras: ["se", "siente"], tiempo: 1900},
+            { palabras: ["se", "siente"], tiempo: 1900},// tiempo en que sale las letras
             { palabras: ["que", "viene"], tiempo: 4000},
-            { palabras: ["Diciembre"], tiempo: 5000, esUltimo: true},
+            { palabras: ["Diciembre!!!"], tiempo: 5000, esUltimo: true},
         ];
 
+        
         btn.addEventListener("click", () => {
             section1.classList.add("desactivado");
             section2.classList.remove("desactivado");
@@ -117,7 +119,7 @@
                         }
                     });
 
-                    if (letraObj.esUltimo) {
+                    if (letraObj.esUltimo) {//sal gif y musica
                         setTimeout(() => {
                             pLetras.innerHTML = "";
                             const gif = document.createElement("img");
